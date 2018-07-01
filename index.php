@@ -10,15 +10,21 @@ foreach ($projects as $project) {
 	}
 }
 
-print_r($ignoreIDs);
-
 $tasks = getTodoistData('tasks');
+$days = [];
 foreach ($tasks as $i => $task) {
-	if ($task['completed'] || in_array($task['project_id'], $ignoreIDs)) {
-		unset($tasks[$i]);
+	if (!$task['completed'] &&
+		!in_array($task['project_id'], $ignoreIDs) &&
+		!empty($task['due'])) {
+			$days[$task['due']['date']][] = $task;
 	}
 }
 $tasks = array_values($tasks);
+
+print_r($days);
+
+$days = [];
+// foreach ($tasks)
 
 function getTodoistData($uri) {
 
@@ -39,7 +45,6 @@ function getTodoistData($uri) {
 	} else {
 		return json_decode($result, true); 
 	}
-
 }
 
 
