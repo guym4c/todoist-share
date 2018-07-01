@@ -21,9 +21,16 @@ a {
 	}
 
 	.task {
-		border: 1px solid #000;
 		width: 100%;
 		padding: 10px;
+		margin: 20px 0;
+		background-color: #fff;
+		border-radius: 3px;
+		box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+		h2 {
+			margin: 0;
+		}
 
 		ul {
 			display: inline;
