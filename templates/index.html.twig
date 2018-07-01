@@ -4,19 +4,22 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600" rel="stylesheet"> 
 	</head>
 	<body>
-		{% for day, tasks in days %}
-			<h1>{{ day }}</h1>
-			{% for task in tasks %}
-				<div class="task">
-					<h2 title="{{ task.id }}">{{ task.content }}</h2>
-					<ul>
-						<li>{{ projects[task.project_id] }}</li>
-						<li><a href="{{ task.url }}">View</a></li>
-					</ul>
-				</div>
+		<div class="container">
+			{% for day, tasks in days %}
+				<h1>{{ day|nicedate }}</h1>
+				{% for task in tasks %}
+					<div class="task">
+						<h2 title="{{ task.id }}">{{ task.content }}</h2>
+						<ul>
+							<li>{{ projects[task.project_id] }}</li>
+							<li><a href="{{ task.url }}" target="_blank">View</a></li>
+						</ul>
+					</div>
+				{% endfor %}
 			{% endfor %}
-		{% endfor %}
+		</div>
 	</body>
 </html>

@@ -41,6 +41,12 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+// filters
+
+$container->get('view')->getEnvironment()->addFilter(new Twig_SimpleFilter('nicedate', function ($s) {
+    return date('j F', strtotime($s));
+}));
+
 // routes
 
 $app->get('/', function (Request $request, Response $response) {
