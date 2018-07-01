@@ -14,7 +14,9 @@
 				<h1>{{ day|nicedate }}</h1>
 				{% for task in tasks %}
 					<div class="task">
-						<h2 title="{{ task.id }}">{{ task.content }}</h2>
+						{% autoescape false %}
+							<h2 title="{{ task.id }}">{{ task.content }}</h2>
+						{% endautoescape %}
 						<ul>
 							<li>{{ projects[task.project_id] }}</li>
 							<li><a href="{{ task.url }}" target="_blank">View</a></li>

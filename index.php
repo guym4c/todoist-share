@@ -15,6 +15,7 @@ $config['todoist-share']['ignore'] = [
     'shopping',
     'errands',
 ];
+$config['todoist-share']['github'] = 'guym4c';
 
 $app = new Slim\App(['settings' => $config]);
 
@@ -68,6 +69,9 @@ $app->get('/', function (Request $request, Response $response) {
         if (!$task['completed'] &&
             !in_array($task['project_id'], $ignoreIDs) &&
             !empty($task['due'])) {
+                $task['content'] = preg_replace('/\*(\S+)\/(\d+)/', 
+                    '<a href="https://github.com/' . $this->get('settings')['todoist-share']['github'] . '/$1/issues/$2/" target="_blank" title="$1/$2">#$2</a>',
+                    $task['content']);
                 $days[$task['due']['date']][] = $task;
         }
     }
