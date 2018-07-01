@@ -2,3 +2,11 @@
 \.htaccess
 
 keys\.php
+
+composer\.lock
+
+*.css
+
+*.map
+
+vendor/

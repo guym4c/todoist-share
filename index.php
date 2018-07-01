@@ -4,7 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 require __DIR__ . '/vendor/autoload.php';
-require __DIR__ . '/js/keys.php';
+require __DIR__ . '/keys.php';
 
 // setup Slim
 
@@ -45,23 +45,31 @@ $container['view'] = function ($container) {
 
 $app->get('/', function (Request $request, Response $response) {
 
-    $projects = getTodoistData('projects', $this->get('settings')['todoist']['key']);
+    $projectsJson = getTodoistData('projects', $this->get('settings')['todoist']['key']);
     $ignoreIDs = [];
-    foreach ($projects as $project) {
-        if (in_array(strtolower($project['name']), $ignoreNames)) {
+    $projects = [];
+    foreach ($projectsJson as $project) {
+        if (in_array(strtolower($project['name']), $this->get('settings')['todoist-share']['ignore'])) {
             $ignoreIDs[] = $project['id'];
+        } else {
+            $projects[$project['id']] = $project['name'];
         }
     }
 
     $tasks = getTodoistData('tasks', $this->get('settings')['todoist']['key']);
     $days = [];
-    foreach ($tasks as $i => $task) {
+    foreach ($tasks as $task) {
         if (!$task['completed'] &&
             !in_array($task['project_id'], $ignoreIDs) &&
             !empty($task['due'])) {
                 $days[$task['due']['date']][] = $task;
         }
     }
+
+    return $this->view->render($response, 'index.html.twig', [
+        'projects'  => $projects,
+        'days'      => $days,
+    ]);
 
 });
 
