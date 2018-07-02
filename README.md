@@ -3,7 +3,7 @@ A simple Slim app that generates a webpage showing what you're working on.
 
 ## Config
 `config.php` contains the app settings. The app requires a `$todoistApiKey`, your personal API key for your Todoist account.  
-`$ignore` is an array of project names that the app will ignore. These are useful for keeping personal todos hidden.
+`$ignore` is an array of project names that the app will ignore. These are useful for keeping personal todos hidden.  
 `$github` is your GitHub handle.
 
 ## GitHub integration
