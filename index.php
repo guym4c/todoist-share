@@ -76,6 +76,8 @@ $app->get('/', function (Request $request, Response $response) {
         }
     }
 
+    ksort($days);
+
     return $this->view->render($response, 'index.html.twig', [
         'projects'  => $projects,
         'days'      => $days,
